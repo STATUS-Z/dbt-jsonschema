@@ -1331,6 +1331,108 @@
           "additionalProperties": false
         },
         {
+          "description": "DuckDB adapter configuration",
+          "type": "object",
+          "required": [
+            "type"
+          ],
+          "properties": {
+            "attach": {
+              "description": "External databases to attach.",
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "$ref": "#/definitions/DuckDbAttachment"
+              }
+            },
+            "database": {
+              "description": "Database name (defaults to \"main\")",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "extensions": {
+              "description": "Extensions to load (e.g., [\"httpfs\", \"parquet\"] or [{name: \"duckpgq\", repo: \"community\"}])",
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "$ref": "#/definitions/DuckDbExtension"
+              }
+            },
+            "external_root": {
+              "description": "Root path for external materializations (defaults to \".\")",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "is_ducklake": {
+              "description": "Whether the primary database is a DuckLake database. Set to true to enable DuckLake-specific query generation (e.g., DROP without CASCADE). Not needed when the path uses the `ducklake:` scheme, but required for MotherDuck managed DuckLake where the path uses `md:` instead.",
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "path": {
+              "description": "Path to the DuckDB database file. Defaults to in-memory (:memory:)",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "schema": {
+              "description": "Schema name (defaults to \"main\")",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "secrets": {
+              "description": "Secrets to register with DuckDB's Secrets Manager.",
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "$ref": "#/definitions/DuckDbSecret"
+              }
+            },
+            "settings": {
+              "description": "DuckDB configuration settings (e.g., {\"memory_limit\": \"4GB\"})",
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": {
+                "$ref": "#/definitions/AnyValue"
+              }
+            },
+            "threads": {
+              "description": "Number of threads",
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/StringOrInteger"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "type": {
+              "type": "string",
+              "enum": [
+                "alt"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        {
           "type": "object",
           "required": [
             "type"

@@ -404,6 +404,15 @@
         "name"
       ],
       "properties": {
+        "classifiers": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
         "column_mask": {
           "anyOf": [
             {
@@ -633,6 +642,25 @@
           "type": "string",
           "enum": [
             "service"
+          ]
+        }
+      ]
+    },
+    "ComputePlatform": {
+      "description": "Selects the compute target a model's DML is executed against.\n\n`Default` uses the profile's adapter. A run implementation may honor an alternate target for other variants; parse/compile/render and introspection are unaffected by this selection.",
+      "oneOf": [
+        {
+          "description": "Execute on the profile's (default) adapter.",
+          "type": "string",
+          "enum": [
+            "default"
+          ]
+        },
+        {
+          "description": "Execute on the alternate compute target.",
+          "type": "string",
+          "enum": [
+            "alt"
           ]
         }
       ]
@@ -1112,12 +1140,14 @@
           ]
         },
         "hours_to_expiration": {
-          "type": [
-            "integer",
-            "null"
-          ],
-          "format": "uint64",
-          "minimum": 0.0
+          "anyOf": [
+            {
+              "$ref": "#/definitions/StringOrInteger"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "iceberg_version": {
           "type": [
@@ -1134,6 +1164,12 @@
           ]
         },
         "include_full_name_in_path": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "incremental_apply_config_changes": {
           "type": [
             "boolean",
             "null"
@@ -1589,7 +1625,19 @@
             "null"
           ]
         },
+        "use_safer_relation_operations": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
         "use_uniform": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "view_update_via_alter": {
           "type": [
             "boolean",
             "null"
@@ -2409,6 +2457,7 @@
     "FreshnessPeriod": {
       "type": "string",
       "enum": [
+        "second",
         "minute",
         "hour",
         "day"
@@ -2737,12 +2786,14 @@
           ]
         },
         "hours_to_expiration": {
-          "type": [
-            "integer",
-            "null"
-          ],
-          "format": "uint64",
-          "minimum": 0.0
+          "anyOf": [
+            {
+              "$ref": "#/definitions/StringOrInteger"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "iceberg_version": {
           "type": [
@@ -2759,6 +2810,12 @@
           ]
         },
         "include_full_name_in_path": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "incremental_apply_config_changes": {
           "type": [
             "boolean",
             "null"
@@ -3206,7 +3263,19 @@
             }
           ]
         },
+        "use_safer_relation_operations": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
         "use_uniform": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "view_update_via_alter": {
           "type": [
             "boolean",
             "null"
@@ -4115,6 +4184,16 @@
             "null"
           ]
         },
+        "alt_compute": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ComputePlatform"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "as_columnstore": {
           "type": [
             "boolean",
@@ -4218,6 +4297,17 @@
           "type": [
             "boolean",
             "null"
+          ]
+        },
+        "classifiers": {
+          "default": [],
+          "anyOf": [
+            {
+              "$ref": "#/definitions/StringOrArrayOfStrings"
+            },
+            {
+              "type": "null"
+            }
           ]
         },
         "cluster_by": {
@@ -4446,12 +4536,14 @@
           ]
         },
         "hours_to_expiration": {
-          "type": [
-            "integer",
-            "null"
-          ],
-          "format": "uint64",
-          "minimum": 0.0
+          "anyOf": [
+            {
+              "$ref": "#/definitions/StringOrInteger"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "http_path": {
           "type": [
@@ -4484,6 +4576,12 @@
           ]
         },
         "include_full_name_in_path": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "incremental_apply_config_changes": {
           "type": [
             "boolean",
             "null"
@@ -5136,6 +5234,12 @@
             "null"
           ]
         },
+        "use_safer_relation_operations": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
         "use_uniform": {
           "type": [
             "boolean",
@@ -5143,6 +5247,12 @@
           ]
         },
         "user_folder_for_python": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "view_update_via_alter": {
           "type": [
             "boolean",
             "null"
@@ -6207,12 +6317,14 @@
           ]
         },
         "hours_to_expiration": {
-          "type": [
-            "integer",
-            "null"
-          ],
-          "format": "uint64",
-          "minimum": 0.0
+          "anyOf": [
+            {
+              "$ref": "#/definitions/StringOrInteger"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "iceberg_version": {
           "type": [
@@ -6229,6 +6341,12 @@
           ]
         },
         "include_full_name_in_path": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "incremental_apply_config_changes": {
           "type": [
             "boolean",
             "null"
@@ -6681,7 +6799,19 @@
             "null"
           ]
         },
+        "use_safer_relation_operations": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
         "use_uniform": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "view_update_via_alter": {
           "type": [
             "boolean",
             "null"
@@ -7085,12 +7215,14 @@
           ]
         },
         "hours_to_expiration": {
-          "type": [
-            "integer",
-            "null"
-          ],
-          "format": "uint64",
-          "minimum": 0.0
+          "anyOf": [
+            {
+              "$ref": "#/definitions/StringOrInteger"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "iceberg_version": {
           "type": [
@@ -7107,6 +7239,12 @@
           ]
         },
         "include_full_name_in_path": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "incremental_apply_config_changes": {
           "type": [
             "boolean",
             "null"
@@ -7621,7 +7759,19 @@
             "null"
           ]
         },
+        "use_safer_relation_operations": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
         "use_uniform": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "view_update_via_alter": {
           "type": [
             "boolean",
             "null"
@@ -7989,12 +8139,14 @@
           }
         },
         "hours_to_expiration": {
-          "type": [
-            "integer",
-            "null"
-          ],
-          "format": "uint64",
-          "minimum": 0.0
+          "anyOf": [
+            {
+              "$ref": "#/definitions/StringOrInteger"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "iceberg_version": {
           "type": [
@@ -8011,6 +8163,12 @@
           ]
         },
         "include_full_name_in_path": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "incremental_apply_config_changes": {
           "type": [
             "boolean",
             "null"
@@ -8434,7 +8592,19 @@
             "null"
           ]
         },
+        "use_safer_relation_operations": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
         "use_uniform": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "view_update_via_alter": {
           "type": [
             "boolean",
             "null"
@@ -8558,6 +8728,17 @@
           "items": {
             "type": "string"
           }
+        }
+      ]
+    },
+    "StringOrInteger": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "integer",
+          "format": "int64"
         }
       ]
     },
@@ -9031,12 +9212,14 @@
           }
         },
         "hours_to_expiration": {
-          "type": [
-            "integer",
-            "null"
-          ],
-          "format": "uint64",
-          "minimum": 0.0
+          "anyOf": [
+            {
+              "$ref": "#/definitions/StringOrInteger"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "iceberg_version": {
           "type": [
@@ -9053,6 +9236,12 @@
           ]
         },
         "include_full_name_in_path": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "incremental_apply_config_changes": {
           "type": [
             "boolean",
             "null"
@@ -9441,7 +9630,19 @@
             "null"
           ]
         },
+        "use_safer_relation_operations": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
         "use_uniform": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "view_update_via_alter": {
           "type": [
             "boolean",
             "null"
